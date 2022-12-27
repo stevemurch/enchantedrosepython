@@ -141,21 +141,19 @@ def pulse_light_on_off():
 
 
 
-setup()
-
-print("Puff 1")
-puff_1()
-print("Puff 2")
-puff_2()
-print("Puff 3")
-puff_3()
-print("Puff 4")
-puff_4()
+if __name__ == "__main__":
+    setup()
+    print("Puff 1")
+    puff_1()
+    print("Puff 2")
+    puff_2()
+    print("Puff 3")
+    puff_3()
+    print("Puff 4")
+    puff_4()
+    cleanup()
 
 # GPIO.output(VALVE_3, GPIO.HIGH)
 #sleep(2)
 # GPIO.output(VALVE_3, GPIO.LOW)
 
-
-
-cleanup()

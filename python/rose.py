@@ -15,12 +15,11 @@
 
 # ! STEP 3: make sure this python flask app runs at every device boot 
 # various strategies -- gunicorn, etc. 
-
 # set that as a startup app 
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-from solenoidcontrol import setup, cleanup, activate_solenoid, pulse_light_on_off, pump_on, pump_off
+from solenoidcontrol import setup, cleanup, activate_solenoid, pulse_light_on_off, pump_on, pump_off, puff_1, puff_2, puff_3, puff_4
 import os 
 import subprocess 
 from subprocess import Popen, PIPE
@@ -44,8 +43,6 @@ setup()
 def home():
     return 'Hello there, from Raspberry Pi.'
 
-
-
 @app.route("/pump/on")
 @cross_origin()
 def pumpon(): 
@@ -54,9 +51,35 @@ def pumpon():
 
 @app.route("/pump/off")
 @cross_origin()
-def pumpon(): 
+def pumpoff(): 
     pump_off()
     return jsonify(message="Pump off")
+
+# PETAL DROPPING ENDPOINTS
+@app.route("/drop/1")
+@cross_origin()
+def drop1(): 
+    puff_1()
+    return jsonify(message="dropped 1")
+
+@app.route("/drop/2")
+@cross_origin()
+def drop2(): 
+    puff_2()
+    return jsonify(message="dropped 2")
+
+@app.route("/drop/3")
+@cross_origin()
+def drop3(): 
+    puff_3()
+    return jsonify(message="dropped 3")
+
+@app.route("/drop/4")
+@cross_origin()
+def drop4(): 
+    puff_4()
+    return jsonify(message="dropped 4")
+
 
 @app.route("/neo")
 @cross_origin()
