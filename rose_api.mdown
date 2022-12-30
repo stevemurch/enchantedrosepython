@@ -5,12 +5,20 @@
 ```/status```: status - used to verify that API is up and running
 
 ## Lights
-```/neo/rainbow```
-```/neo/chase```
-```/neo/color?r=255&g=255&b=255```: set a solid color using r, g, b values
+
+### Neopixels
+```/neo/rainbow
+/neo/chase
+/neo/color?r=255&g=255&b=255```: set a solid color using r, g, b values
+
+### Stem light
+```/stemlight/on
+/stemlight/off```
 
 ## Petal Drop
 ```/drop/1, /drop/2, /drop/3, /drop/4```
 Push air through pipes 1..4 
+
+
 
 
