@@ -9,7 +9,7 @@
 import RPi.GPIO as GPIO
 from time import sleep 
 
-PUMP_PINS = [16, 26, 6, 5] # in BCM (Broadcom) format 
+PUMP_PINS = [21, 26, 6, 5] # in BCM (Broadcom) format 
 STEMLIGHT_PIN = 25 
 # !PIN 18 IS RESERVED FOR NEOPIXEL -- see the file neopixel_control.py
 
