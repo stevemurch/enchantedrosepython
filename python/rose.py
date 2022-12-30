@@ -58,39 +58,39 @@ def home():
 @app.route("/drop/1")
 @cross_origin()
 def drop1(): 
-    puff_pump(0)
-    return jsonify(message="dropped 1")
+    msg = puff_pump(0)
+    return jsonify(message=msg)
 
 @app.route("/drop/2")
 @cross_origin()
 def drop2(): 
-    puff_pump(1)
-    return jsonify(message="dropped 2")
+    msg = puff_pump(1)
+    return jsonify(message=msg)
 
 @app.route("/drop/3")
 @cross_origin()
 def drop3(): 
-    puff_pump(2)
-    return jsonify(message="dropped 3")
+    msg = puff_pump(2)
+    return jsonify(message=msg)
 
 @app.route("/drop/4")
 @cross_origin()
 def drop4(): 
-    puff_pump(3)
-    return jsonify(message="dropped 4")
+    msg = puff_pump(3)
+    return jsonify(message=msg)
 
 # STEM LIGHTS ----------------------
 @app.route("/stemlight/on")
 @cross_origin()
 def do_stemlight_on():
-    stemlight_on()
-    return jsonify(message="stemlight on")
+    msg = stemlight_on()
+    return jsonify(message=msg)
 
 @app.route("/stemlight/off")
 @cross_origin()
 def do_stemlight_off():
-    stemlight_off()
-    return jsonify(message="stemlight off")
+    msg = stemlight_off()
+    return jsonify(message=msg)
 
 
 # NEOPIXEL ACCENT LIGHTS ----------------------

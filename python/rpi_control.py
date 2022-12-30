@@ -33,12 +33,16 @@ def puff_pump(pump_number):
     GPIO.output(PUMP_PINS[pump_number], GPIO.HIGH)
     sleep(DURATION_PUMP_CYCLE_SECONDS)
     GPIO.output(PUMP_PINS[pump_number], GPIO.LOW)
+    return "Petal %s: activated BCM PIN #%s" % (pump_number+1, PUMP_PINS[pump_number])
 
 def stemlight_on():
     GPIO.output(STEMLIGHT_PIN, GPIO.HIGH)
+    return "Set BCM PIN #%s to HIGH" % STEMLIGHT_PIN
+
 
 def stemlight_off():
-    GPIO.output(STEMLIGHT_PIN. GPIO.LOW)
+    GPIO.output(STEMLIGHT_PIN, GPIO.LOW)
+    return "Set BCM PIN #%s to LOW" % STEMLIGHT_PIN
 
 def cleanup():
     GPIO.cleanup()
