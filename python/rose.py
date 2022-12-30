@@ -8,101 +8,130 @@
 
 # ! STEP 2: run the app to test it out
 # python rose.py
-# or py rose.py
-# or python3 rose.py 
+
 # ! STEP 2a: Manual test 
 # You should be able to visit http://localhost:5001/status and see a status message 
 
 # ! STEP 3: make sure this python flask app runs at every device boot 
-# various strategies -- gunicorn, etc. 
-# set that as a startup app 
+# pip install gunicorn
+
+# modify /etc/rc.local to start gunicorn with the flask app at every boot:
+# add this line to the end of /etc/rc.local (assuming your flask code "rose.py" is in /root/rose/enchantedrosepython/python)
+# gunicorn -c /root/rose/enchantedrosepython/python/gunicorn.conf.py --chdir /root/rose/enchantedrosepython/python rose:app
+#
+# contents of "gunicorn.conf.py":
+# bind="0.0.0.0:5001"
+# workers=2
+
+# ! Development Notes
+# To kill gunicorn process while developing: 
+# pkill gunicorn
+# 
+# then you can test out the new flask app simply with 
+# python rose.py
+#
+# when done, push changes to the Github repository 
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-from solenoidcontrol import setup, cleanup, activate_solenoid, pulse_light_on_off, pump_on, pump_off, puff_1, puff_2, puff_3, puff_4
+from rpi_control import setup_rpi, puff_pump, stemlight_on, stemlight_off
 import os 
 import subprocess 
 from subprocess import Popen, PIPE
 from subprocess import check_output
 from testshell import run_the_script
-from pix import doChase, doRainbow, pixelsOff, doColor
+from neopixel_control import doChase, doRainbow, pixelsOff, doColor
 from time import sleep 
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-def get_shell_script_output_using_check_output():
-    stdout = check_output(['/home/pi/rose/python/runpix.sh']).decode('utf-8')
-    return stdout
-
-setup()
+setup_rpi()
 
 @app.route('/')
 @cross_origin()
 def home():
-    return 'Hello there, from Raspberry Pi.'
-
-@app.route("/pump/on")
-@cross_origin()
-def pumpon(): 
-    pump_on()
-    return jsonify(message="Pump on")
-
-@app.route("/pump/off")
-@cross_origin()
-def pumpoff(): 
-    pump_off()
-    return jsonify(message="Pump off")
+    return jsonify(message="Hello, world, from the Enchanted Rose prop.")
 
 # PETAL DROPPING ENDPOINTS
 @app.route("/drop/1")
 @cross_origin()
 def drop1(): 
-    puff_1()
+    puff_pump(0)
     return jsonify(message="dropped 1")
 
 @app.route("/drop/2")
 @cross_origin()
 def drop2(): 
-    puff_2()
+    puff_pump(1)
     return jsonify(message="dropped 2")
 
 @app.route("/drop/3")
 @cross_origin()
 def drop3(): 
-    puff_3()
+    puff_pump(2)
     return jsonify(message="dropped 3")
 
 @app.route("/drop/4")
 @cross_origin()
 def drop4(): 
-    puff_4()
+    puff_pump(3)
     return jsonify(message="dropped 4")
 
-
-@app.route("/neo")
+# STEM LIGHTS ----------------------
+@app.route("/stemlight/on")
 @cross_origin()
-def neo(): 
-    # stream = os.popen('/home/pi/rose/python/runpix.sh')
-    # output = stream.read()
-    # os.system("sudo python /home/pi/rose/python/pix.py")
+def do_stemlight_on():
+    stemlight_on()
+    return jsonify(message="stemlight on")
 
-    # output = get_shell_script_output_using_check_output()
+@app.route("/stemlight/off")
+@cross_origin()
+def do_stemlight_off():
+    stemlight_off()
+    return jsonify(message="stemlight off")
+
+
+# NEOPIXEL ACCENT LIGHTS ----------------------
+@app.route("/neo/rainbow")
+@cross_origin()
+def neo_rainbow(): 
     try:
         doRainbow()
-        sleep(2)
+
+    except Exception as e:
+        return jsonify(message="encountered an error "+str(e))
+
+    return jsonify(message="Did a rainbow")
+
+@app.route("/neo/chase")
+@cross_origin()
+def neo_chase(): 
+    try:
+        doChase()
+        sleep(3)
         pixelsOff()
 
     except Exception as e:
         return jsonify(message="encountered an error "+str(e))
 
-    return jsonify(message="Ran the neopixel script")
+    return jsonify(message="Did a chase")
 
-
-@app.route("/color")
+@app.route("/neo/off")
 @cross_origin()
-def color(): 
+def neo_off(): 
+    try:
+        pixelsOff()
+
+    except Exception as e:
+        return jsonify(message="encountered an error "+str(e))
+
+    return jsonify(message="Turned off neopixels")
+
+@app.route("/neo/color")
+@cross_origin()
+def do_neo_color(): 
     args = request.args
     r = args.get('r', default=0, type=int) 
     g = args.get('g', default=0, type=int) 
@@ -116,28 +145,11 @@ def color():
 
     return jsonify(message="Set the color to "+str(r)+","+str(g)+","+str(b))
 
-
 @app.route('/status')
 @cross_origin()
 def status():
     return jsonify(message='Connection successful!')
 
-@app.route('/activate/<solenoid>')
-@cross_origin()
-def drop(solenoid):
-    if (not solenoid.isdigit()):
-        return jsonify(message="Not numeric")
-    sol_number = int(solenoid)
-    activate_solenoid(sol_number)
-    if ((sol_number<1) or (sol_number>4)):
-        return jsonify(message='Invalid number')
-    return jsonify(message='Dropped '+solenoid)
-
-@app.route('/light/pulse')
-@cross_origin()
-def pulse_light():
-    pulse_light_on_off()
-    return jsonify(message='Pulsed')
 
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5001)
