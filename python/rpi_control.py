@@ -37,18 +37,17 @@ def puff_pump(pump_number):
 
 def stemlight_on():
     GPIO.output(STEMLIGHT_PIN, GPIO.HIGH)
-    return "Set BCM PIN #%s to HIGH" % STEMLIGHT_PIN
+    return "Stemlight on; PIN #%s set to HIGH" % STEMLIGHT_PIN
 
 
 def stemlight_off():
     GPIO.output(STEMLIGHT_PIN, GPIO.LOW)
-    return "Set BCM PIN #%s to LOW" % STEMLIGHT_PIN
+    return "Stemlight off; PIN #%s set to LOW" % STEMLIGHT_PIN
 
 def cleanup():
     GPIO.cleanup()
 
-
-
+# --------------------------------
 
 if __name__ == "__main__":
     setup()

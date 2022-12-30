@@ -143,7 +143,7 @@ def do_neo_color():
     except Exception as e:
         return jsonify(message="encountered an error "+str(e))
 
-    return jsonify(message="Set the color to "+str(r)+","+str(g)+","+str(b))
+    return jsonify(message="Color set to "+str(r)+","+str(g)+","+str(b))
 
 @app.route('/status')
 @cross_origin()
