@@ -1,4 +1,7 @@
 # Enchanted Rose API
+The file "rose.py" is a Flask application, which is run by gunicorn in 
+/etc/rc.local on every Raspberry Pi boot. You'll find it on port 5001. 
+Here are the paths:
 
 ## General
 ```/```: welcome page
