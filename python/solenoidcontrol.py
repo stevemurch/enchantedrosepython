@@ -13,7 +13,7 @@ VALVE_3 = 6
 
 PUMP_PIN = 21
 
-
+DURATION_PUMP_CYCLE_SECONDS = 1
 
 # Valves. Need to be able to send a puff of air to 4 different outputs.
 # To do this, we first configure the solenoids, and then turn on the pump. 
@@ -42,9 +42,9 @@ def puff_1():
     # valve 1: closed
     GPIO.output(VALVE_1, GPIO.HIGH)
     # turn on pump 
-    sleep(0.1)
+    # sleep(0.1)
     pump_on()
-    sleep(3)
+    sleep(DURATION_PUMP_CYCLE_SECONDS)
     # turn off pump
     pump_off()
     valves_off()
@@ -56,10 +56,10 @@ def puff_2():
     # valve 2: closed 
     GPIO.output(VALVE_2, GPIO.HIGH)
     # turn on pump 
-    sleep(0.1)
+    # sleep(0.1)
 
     pump_on()
-    sleep(3)
+    sleep(DURATION_PUMP_CYCLE_SECONDS)
     # turn off pump
     pump_off()
     valves_off()
@@ -73,10 +73,10 @@ def puff_3():
     # valve 3: closed 
     GPIO.output(VALVE_3, GPIO.HIGH)
     # turn on pump 
-    sleep(0.1)
+    #sleep(0.1)
 
     pump_on()
-    sleep(3)
+    sleep(DURATION_PUMP_CYCLE_SECONDS)
     # turn off pump
     pump_off()
     valves_off()
@@ -90,10 +90,10 @@ def puff_4():
     # valve 3: open 
     GPIO.output(VALVE_3, GPIO.LOW)
      # turn on pump 
-    sleep(0.1)
+    #sleep(0.1)
 
     pump_on()
-    sleep(3)
+    sleep(DURATION_PUMP_CYCLE_SECONDS)
     # turn off pump
     pump_off()
     return
