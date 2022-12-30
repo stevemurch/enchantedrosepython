@@ -6,7 +6,6 @@ from time import sleep
 
 SOLENOID_PINS = [16, 26, 6, 5, 13] # in BCM (Broadcom) format 
 
-
 VALVE_1 = 16
 VALVE_2 = 5
 VALVE_3 = 6
