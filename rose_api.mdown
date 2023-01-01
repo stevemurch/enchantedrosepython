@@ -1,4 +1,23 @@
-# Enchanted Rose API
+# Enchanted Rose
+
+The Enchanted Rose is a stage prop for productions of "Beauty and the Beast." This repository contains the API software for controlling the prop. It's a Flask-based Python API. 
+
+The main functions of the prop are: 
+
+- Turn stem light on and off
+- Turn accent light on and off, and set colors and pattern 
+- Drop 4 rose petals, one by one, on cue.
+
+Control is via a web browser. That is, the prop itself hosts a web server and its own private "ad-hoc" network. The stage manager connects the prop's ad-hoc network and accesses the controller software. 
+
+There are three main components to this prop:
+
+1) The controller software, written in React/Next.js. You'll find that code in [the enchantedrose repository](https://github.com/stevemurch/enchantedrose). 
+2) This API, in this repo. This is the essential python-based API software, which controls the GPIO pins on the Raspberry Pi. The role of this software libary is to present an API for turning on/off lights, dropping petals, etc.  
+3) The prop hardware. 
+
+You'll find more information about this prop at my blog, https://stevemurch.com.  
+
 The file "rose.py" is a Flask application, which is run by gunicorn in 
 /etc/rc.local on every Raspberry Pi boot. You'll find it on port 5001. 
 Here are the paths:
@@ -22,7 +41,6 @@ Here are the paths:
 ## Petal Drop
 ```/drop/1, /drop/2, /drop/3, /drop/4```
 Push air through pipes 1..4 
-
 
 
 
