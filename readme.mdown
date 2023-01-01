@@ -1,6 +1,8 @@
+**Companion to Enchanted Rose front-end React app** located at https://github.com/stevemurch/enchantedrose. 
+
 # Enchanted Rose
 
-The Enchanted Rose is a stage prop for productions of "Beauty and the Beast." This repository contains the API software for controlling the prop. It's a Flask-based Python API. This repo is a companion to the front-end control app which calls the Python API in this repo. The compaion control app can be found here: [stevemurch/enchantedrose (github.com)](https://github.com/stevemurch/enchantedrose).
+The Enchanted Rose is a stage prop for productions of "Beauty and the Beast." This repository contains the API software for controlling the prop. It's a Flask-based Python API. This repo is a companion to the front-end control app which calls the Python API in this repo. 
 
 The main functions of the prop are: 
 
