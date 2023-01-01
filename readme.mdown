@@ -1,52 +1,54 @@
-**Companion to Enchanted Rose front-end React app** located at https://github.com/stevemurch/enchantedrose. 
+**Companion to Enchanted Rose front-end React app** located at https://github.com/stevemurch/enchantedrose.
 
 # Enchanted Rose
 
-The Enchanted Rose is a stage prop for productions of "Beauty and the Beast." This repository contains the API software for controlling the prop. It's a Flask-based Python API. This repo is a companion to the front-end control app which calls the Python API in this repo. 
+The Enchanted Rose is a stage prop for productions of "Beauty and the Beast." This repository contains the API software for controlling the prop. It's a Flask-based Python API. This repo is a companion to the front-end control app which calls the Python API in this repo.
 
-The main functions of the prop are: 
+The main functions of the prop are:
 
 - Turn stem light on and off
-- Turn accent light on and off, and set colors and pattern 
+- Turn accent light on and off, and set colors and pattern
 - Drop 4 rose petals, one by one, on cue.
 
-Control of the prop is via a Python-based API, which has a front-end control app. That is, the prop itself hosts a web server on the Raspberry Pi, and presents its own private "ad-hoc" network. The stage manager connects the prop's ad-hoc network, and accesses the controller software. This general pattern can be used to build "remote control" devices. There are three main components to this stage prop:
+Control of the prop is via a Python-based API, which has a front-end control app. That is, the prop itself hosts a web server on the Raspberry Pi, and presents its own private "ad-hoc" network. The stage manager connects the prop's ad-hoc network, and accesses the controller software. This general pattern can be used to build "remote control" devices.
 
-1) The **front-end control software**, written in React/Next.js. You'll find that code in [the enchantedrose repository](https://github.com/stevemurch/enchantedrose). From a technical standpoint, all this repo does is present a nice front-end layer onto the API. 
-2) This hardware API, in this repo. This repo is the essential python-based API software, which controls the GPIO pins on the Raspberry Pi. The role of this software libary is to present an API for turning on/off lights, dropping petals, etc.  
-3) The prop hardware itself. 
+There are three main components to this stage prop:
 
-You'll find more information about this prop at my blog, https://stevemurch.com; search for "enchanted." 
+1. The **front-end control software**, written in React/Next.js. You'll find that code in [the enchantedrose repository](https://github.com/stevemurch/enchantedrose). From a technical standpoint, all this repo does is present a nice front-end layer onto the API.
+2. This hardware API, in this repo. This repo is the essential python-based API software, which controls the GPIO pins on the Raspberry Pi. The role of this software libary is to present an API for turning on/off lights, dropping petals, etc.
+3. The prop hardware itself.
 
-The file "rose.py" is a Flask application, which is run by gunicorn in 
-/etc/rc.local on every Raspberry Pi boot. You'll find it on port 5001. 
+You'll find more information about this prop at my blog, https://stevemurch.com; search for "enchanted."
+
+The file "rose.py" is a Flask application, which is run by gunicorn in
+/etc/rc.local on every Raspberry Pi boot. You'll find it on port 5001.
 Here are the paths:
 
 ## Endpoints
-```/```: welcome message
-```/status```: status - used to verify that API is up and running
+
+`/`: welcome message
+`/status`: status - used to verify that API is up and running
 
 ## Lights
 
-At this writing, there are two kinds of lights on the prop: 5V LED "stem lights" (fairy lights), and a strip of addressable multicolored LEDs (Neopixels.) 
+At this writing, there are two kinds of lights on the prop: 5V LED "stem lights" (fairy lights), and a strip of addressable multicolored LEDs (Neopixels.)
 
 ### Stem light
 
-```/stemlight/on```: turn on stem light
-```/stemlight/off```: turn off stem light
+`/stemlight/on`: turn on stem light
+`/stemlight/off`: turn off stem light
 
 ### Neopixels
-```/neo/rainbow```: do a rainbow display
-```/neo/chase```: do a light-chase display
-```/neo/color?r=255&g=255&b=255```: set a solid color using r, g, b values
+
+`/neo/rainbow`: do a rainbow display
+`/neo/chase`: do a light-chase display
+`/neo/color?r=255&g=255&b=255`: set a solid color using r, g, b values
 
 ## Petal Drop
-```/drop/1, /drop/2, /drop/3, /drop/4```
-Drop petals 1..4. Mechanically, this is done by pushing air through pipes 1..4; the petals are simply attached with a straw and "blown off" the stem when these pumps are run. 
 
-
+`/drop/1, /drop/2, /drop/3, /drop/4`
+Drop petals 1..4. Mechanically, this is done by pushing air through pipes 1..4; the petals are simply attached with a straw and "blown off" the stem when these pumps are run.
 
 ## Get this API to Run at Boot
 
-Flask developers recommend you use "gunicorn" to run the flask app in production. You can configure gunicorn to run at boot time with the instructions you'll find online, or in the main "rose.py" file herein. The "enchantedrose" Next.js app will expect to find the API running at port 5001.  
-
+Flask developers recommend you use "gunicorn" to run the flask app in production. You can configure gunicorn to run at boot time with the instructions you'll find online, or in the main "rose.py" file herein. The "enchantedrose" Next.js app will expect to find the API running at port 5001.
