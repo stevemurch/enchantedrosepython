@@ -10,13 +10,7 @@ The main functions of the prop are:
 - Turn accent light on and off, and set colors and pattern 
 - Drop 4 rose petals, one by one, on cue.
 
-Control of the prop is via a Python-based API, which has a front-end control app. That is, the prop itself hosts a web server on the Raspberry Pi, and presents its own private "ad-hoc" network. The stage manager connects the prop's ad-hoc network, and accesses the controller software. This general pattern can be used to build "remote control" devices. 
-
-Rose in progress (final artwork not complete, but prop is fully functional):
-
-![rose-in-progress](https://user-images.githubusercontent.com/9558478/210182196-c52954c6-789d-4dee-90ec-e8907111ea23.jpeg)
-
-There are three main components to this stage prop:
+Control of the prop is via a Python-based API, which has a front-end control app. That is, the prop itself hosts a web server on the Raspberry Pi, and presents its own private "ad-hoc" network. The stage manager connects the prop's ad-hoc network, and accesses the controller software. This general pattern can be used to build "remote control" devices. There are three main components to this stage prop:
 
 1) The **front-end control software**, written in React/Next.js. You'll find that code in [the enchantedrose repository](https://github.com/stevemurch/enchantedrose). From a technical standpoint, all this repo does is present a nice front-end layer onto the API. 
 2) This hardware API, in this repo. This repo is the essential python-based API software, which controls the GPIO pins on the Raspberry Pi. The role of this software libary is to present an API for turning on/off lights, dropping petals, etc.  
