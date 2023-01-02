@@ -1,8 +1,8 @@
-**Companion to Enchanted Rose front-end React app** located at https://github.com/stevemurch/enchantedrose.
+# Enchanted Rose Python API
 
-# Enchanted Rose
+This repo is a companion to the **Enchanted Rose front-end React app** repo, located at https://github.com/stevemurch/enchantedrose.
 
-The Enchanted Rose is a stage prop for productions of "Beauty and the Beast." This repository contains the API software for controlling the prop. It's a Flask-based Python API. This repo is a companion to the front-end control app which calls the Python API in this repo.
+The **Enchanted Rose** is a stage prop used in productions of "Beauty and the Beast." This repo contains the API software for controlling the prop. It's a Flask-based Python API. 
 
 The main functions of the prop are:
 
@@ -12,10 +12,10 @@ The main functions of the prop are:
 
 Control of the prop is via a Python-based API, which has a front-end control app. That is, the prop itself hosts a web server on the Raspberry Pi, and presents its own private "ad-hoc" network. The stage manager connects the prop's ad-hoc network, and accesses the controller software. This general pattern can be used to build "remote control" devices.
 
-There are three main components to this stage prop:
+There are three main parts to the Enchanted Rose stage prop:
 
 1. The **front-end control software**, written in React/Next.js. You'll find that code in [the enchantedrose repository](https://github.com/stevemurch/enchantedrose). From a technical standpoint, all this repo does is present a nice front-end layer onto the API.
-2. This hardware API, in this repo. This repo is the essential python-based API software, which controls the GPIO pins on the Raspberry Pi. The role of this software libary is to present an API for turning on/off lights, dropping petals, etc.
+2. The **Raspberry Pi API** (this repo.) This is the essential python-based API software, which controls the GPIO pins on the Raspberry Pi. The role of this software libary is to present an API for turning on/off lights, dropping petals, etc.
 3. The prop hardware itself.
 
 You'll find more information about this prop at my blog, https://stevemurch.com; search for "enchanted."
